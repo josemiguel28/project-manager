@@ -91,6 +91,16 @@ class PayrollService
         );
     }
 
+    public function deleteWeek(int $id): void
+    {
+        WorkWeek::findOrFail($id)->delete();
+    }
+
+    public function removeEntry(int $entryId): void
+    {
+        WorkerWeekEntry::findOrFail($entryId)->delete();
+    }
+
     public function saveEntry(int $id, array $data): void
     {
         $entry = WorkerWeekEntry::findOrFail($id);

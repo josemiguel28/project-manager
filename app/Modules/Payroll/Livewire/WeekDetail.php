@@ -88,7 +88,7 @@ class WeekDetail extends Component
         return $days;
     }
 
-    public function updated(string $name, $value): void
+    public function updated(string $name, mixed $_value): void
     {
         $parts = explode('.', $name);
 
@@ -112,6 +112,18 @@ class WeekDetail extends Component
             [, $entryId, $dateKey] = $parts;
             $this->saveDayAssignment((int) $entryId, str_replace('_', '-', $dateKey));
         }
+    }
+
+    public function deleteWeek(): void
+    {
+        app(PayrollService::class)->deleteWeek($this->weekId);
+        $this->redirect(route('payroll.weeks'), navigate: true);
+    }
+
+    public function removeWorker(int $entryId): void
+    {
+        app(PayrollService::class)->removeEntry($entryId);
+        unset($this->entries[$entryId], $this->assignments[$entryId]);
     }
 
     public function toggleCategory(int $entryId, string $category): void

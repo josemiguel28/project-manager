@@ -21,6 +21,12 @@ class WeekList extends Component
         unset($this->workWeeks);
     }
 
+    public function deleteWeek(int $id): void
+    {
+        app(PayrollService::class)->deleteWeek($id);
+        unset($this->workWeeks);
+    }
+
     public function render()
     {
         return view('livewire.weeks.list');

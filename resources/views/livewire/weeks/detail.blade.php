@@ -12,12 +12,23 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
             </svg>
         </a>
-        <div>
+        <div class="flex-1">
             <flux:heading size="xl">Semana del {{ $this->week->formattedRange() }}</flux:heading>
             @if ($this->week->notes)
                 <p class="mt-0.5 text-sm text-slate-500">{{ $this->week->notes }}</p>
             @endif
         </div>
+        <button
+            type="button"
+            wire:click="deleteWeek"
+            wire:confirm="¿Eliminar esta semana? Se borrarán todos los pagos y asignaciones."
+            class="inline-flex items-center gap-1.5 rounded-md border border-rose-200 bg-white px-3 py-1.5 text-sm font-semibold text-rose-600 transition-colors hover:bg-rose-50"
+        >
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+            </svg>
+            Eliminar semana
+        </button>
     </div>
 
     {{-- Divider: Asignaciones del día --}}
@@ -84,6 +95,7 @@
                         <th class="px-3 py-3.5 text-left text-xs font-semibold uppercase tracking-wider text-white">Estado</th>
                         <th class="px-3 py-3.5 text-left text-xs font-semibold uppercase tracking-wider text-white">Nota de pago</th>
                         <th class="px-3 py-3.5 text-left text-xs font-semibold uppercase tracking-wider text-white">Fecha de pago</th>
+                        <th class="px-3 py-3.5"></th>
                     </tr>
                 </thead>
 
@@ -229,10 +241,24 @@
                                 @endif
                             </td>
 
+                            <td class="whitespace-nowrap px-3 py-3">
+                                <button
+                                    type="button"
+                                    wire:click="removeWorker({{ $entryId }})"
+                                    wire:confirm="¿Quitar a {{ $entry['worker_name'] }} de esta semana?"
+                                    class="rounded-md border border-slate-200 bg-white p-1.5 text-slate-400 transition-colors hover:border-rose-200 hover:bg-rose-50 hover:text-rose-500"
+                                    title="Quitar trabajador"
+                                >
+                                    <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                    </svg>
+                                </button>
+                            </td>
+
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" class="py-16 text-center text-slate-400">
+                            <td colspan="9" class="py-16 text-center text-slate-400">
                                 No hay trabajadores en esta semana.
                             </td>
                         </tr>
@@ -257,7 +283,7 @@
                                 <p class="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Gran Total</p>
                                 <p class="text-base font-bold text-slate-900">${{ number_format($grandTotal, 2) }}</p>
                             </td>
-                            <td colspan="3" class="px-3 py-3"></td>
+                            <td colspan="4" class="px-3 py-3"></td>
                         </tr>
                     @endif
 
