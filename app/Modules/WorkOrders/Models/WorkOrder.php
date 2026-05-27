@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\WorkOrders\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -30,4 +30,9 @@ class WorkOrder extends Model
         'day_done' => 'date',
         'amount' => 'decimal:2',
     ];
+
+    protected static function newFactory()
+    {
+        return \Database\Factories\WorkOrderFactory::new();
+    }
 }

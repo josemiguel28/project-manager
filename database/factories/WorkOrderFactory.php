@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\WorkOrder;
+use App\Modules\WorkOrders\Models\WorkOrder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class WorkOrderFactory extends Factory

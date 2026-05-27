@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\WorkOrder;
+use App\Modules\WorkOrders\Models\WorkOrder;
 use Illuminate\Database\Seeder;
 
 class WorkOrderSeeder extends Seeder
